@@ -12,7 +12,7 @@ public class MainActivity extends AppCompatActivity {
 
     char grid[][];
     List<String> possibleMoves;
-    char initp='-';
+    char initp=';';
     String intind="";
     boolean chance=true;
     boolean isFirstClick=true;
@@ -100,6 +100,13 @@ public class MainActivity extends AppCompatActivity {
             for(int j=0;j<8;j++)
             {
                 final int r=i,c=j;
+                buttons[i][j].setOnClickListener(new TextView.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        onClickedLabel(r,c,v);
+                        System.out.println("CLICKED "+r+""+c);
+                    }
+                });
                 if(i==1)
                 {
                     buttons[i][j].setText("p");
@@ -110,17 +117,9 @@ public class MainActivity extends AppCompatActivity {
                     buttons[i][j].setText("P");
                     grid[i][j]='P';
                 }
-                else
-                {
-                    grid[i][j]='-';
+                else {
+                    grid[i][j] = ';';
                 }
-                buttons[i][j].setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        onClickedLabel(r,c,v);
-                        System.out.println("CLICKED "+r+""+c);
-                    }
-                });
             }
         }
         buttons[0][0].setText("e");
@@ -163,20 +162,20 @@ public class MainActivity extends AppCompatActivity {
         System.out.println(chance);
         System.out.println(r+""+c);
         System.out.println(isFirstClick);
-        if(grid[r][c]=='-' && isFirstClick)
+        if(grid[r][c]==';' && isFirstClick)
         {
             return;
         }
         if(chance)
         {
-            if(grid[r][c]=='-')
+            if(grid[r][c]==';')
             {
                 if(!isFirstClick)
                 {
                     if(possibleMoves.contains(r+""+c))
                     {
                         grid[r][c]=initp;
-                        grid[Integer.parseInt(""+intind.charAt(0))][Integer.parseInt(""+intind.charAt(1))]='-';
+                        grid[Integer.parseInt(""+intind.charAt(0))][Integer.parseInt(""+intind.charAt(1))]=';';
                         buttons[r][c].setText(initp);
                         buttons[Integer.parseInt(""+intind.charAt(0))][Integer.parseInt(""+intind.charAt(1))].setText(intind);
                         isFirstClick=true;
@@ -213,7 +212,7 @@ public class MainActivity extends AppCompatActivity {
                     if(possibleMoves.contains(r+""+c))
                     {
                         grid[r][c]=initp;
-                        grid[Integer.parseInt(""+intind.charAt(0))][Integer.parseInt(""+intind.charAt(1))]='-';
+                        grid[Integer.parseInt(""+intind.charAt(0))][Integer.parseInt(""+intind.charAt(1))]=';';
                         buttons[r][c].setText(initp);
                         buttons[Integer.parseInt(""+intind.charAt(0))][Integer.parseInt(""+intind.charAt(1))].setText(intind);
                         isFirstClick=true;
@@ -230,14 +229,14 @@ public class MainActivity extends AppCompatActivity {
         }
         else
         {
-            if(grid[r][c]=='-')
+            if(grid[r][c]==';')
             {
                 if(!isFirstClick)
                 {
                     if(possibleMoves.contains(r+""+c))
                     {
                         grid[r][c]=initp;
-                        grid[Integer.parseInt(""+intind.charAt(0))][Integer.parseInt(""+intind.charAt(1))]='-';
+                        grid[Integer.parseInt(""+intind.charAt(0))][Integer.parseInt(""+intind.charAt(1))]=';';
                         buttons[r][c].setText(initp);
                         buttons[Integer.parseInt(""+intind.charAt(0))][Integer.parseInt(""+intind.charAt(1))].setText(intind);
                         isFirstClick=true;
@@ -253,6 +252,10 @@ public class MainActivity extends AppCompatActivity {
             }
             else if(Character.isLowerCase(grid[r][c])) {
                 possibleMoves = ValidMoves.getMovesUser(grid, r + "" + c);
+                for(String moves:possibleMoves)
+                {
+                    System.out.println(moves);
+                }
                 if (possibleMoves.size() > 0) {
                     isFirstClick = false;
                     initp = grid[r][c];
@@ -267,7 +270,7 @@ public class MainActivity extends AppCompatActivity {
                     if(possibleMoves.contains(r+""+c))
                     {
                         grid[r][c]=initp;
-                        grid[Integer.parseInt(""+intind.charAt(0))][Integer.parseInt(""+intind.charAt(1))]='-';
+                        grid[Integer.parseInt(""+intind.charAt(0))][Integer.parseInt(""+intind.charAt(1))]=';';
                         buttons[r][c].setText(initp);
                         buttons[Integer.parseInt(""+intind.charAt(0))][Integer.parseInt(""+intind.charAt(1))].setText(intind);
                         isFirstClick=true;
